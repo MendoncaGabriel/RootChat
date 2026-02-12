@@ -9,6 +9,8 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const WS_URL = process.env.WS_URL || "ws://localhost:4002";
+console.log(WS_URL)
+
 
 
 const directory = new Directory();
