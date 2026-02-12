@@ -6,14 +6,16 @@ import path from "node:path";
 import { Directory } from "./components/directory.js";
 import dotenv from "dotenv";
 
-dotenv.config();
+const directory = new Directory();
+
+dotenv.config({
+  path: path.resolve(directory.project, ".env"),
+  override: true
+});
 
 const WS_URL = process.env.WS_URL || "ws://localhost:4002";
-console.log(WS_URL)
 
 
-
-const directory = new Directory();
 const userFile = path.join(directory.project, ".rootchat_user");
 
 // ANSI codes para verde estilo Matrix
