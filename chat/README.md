@@ -32,6 +32,8 @@ npm install
 npm run link
 ```
 
+4. crie um arquivo ".env" na pasta chat seguindo o modelo descrito no arquivo .env.example
+
 ---
 
 ## Uso
