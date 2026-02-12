@@ -23,16 +23,16 @@ const wss = new WebSocketServer({ server });
 wss.on("connection", (ws: WebSocket) => {
   console.log("Novo cliente conectado!");
 
-  // Mensagem de boas-vindas apenas para o cliente novo
+  // Mensagem de boas-vindas apenas para o cliente que entrou
   ws.send(JSON.stringify({ user: "SERVER", message: "🟢 Bem-vindo ao chat!" }));
 
   ws.on("message", (message: WebSocket.RawData) => {
     const msgStr = message.toString();
     console.log(`Mensagem recebida: ${msgStr}`);
 
-    // Broadcast para todos os clientes, incluindo o remetente
+    // Broadcast para todos os clientes EXCETO o remetente
     wss.clients.forEach((client) => {
-      if (client.readyState === WebSocket.OPEN) {
+      if (client !== ws && client.readyState === WebSocket.OPEN) {
         client.send(msgStr);
       }
     });
