@@ -10,11 +10,10 @@ const directory = new Directory();
 
 dotenv.config({
   path: path.resolve(directory.project, ".env"),
-  override: true
+  override: true,
 });
 
 const WS_URL = process.env.WS_URL || "ws://localhost:4002";
-
 
 const userFile = path.join(directory.project, ".rootchat_user");
 
@@ -79,7 +78,13 @@ async function startChat() {
   });
 
   ws.on("message", (data) => {
-    console.log(`\n${green}${data.toString()}${reset}`);
+    try {
+      const msg = JSON.parse(data.toString());
+      console.log(`\n${green}${msg.user}: ${msg.message}${reset}`);
+    } catch {
+      // caso não seja JSON, mostra como está
+      console.log(`\n${green}${data.toString()}${reset}`);
+    }
     rl.prompt();
   });
 
